@@ -70,19 +70,7 @@ header p {
     box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
 }
 
-.file-title {
-    font-size: 1.2rem;
-    font-weight: 600;
-    color: #333;
-    margin-bottom: 10px;
-    line-height: 1.4;
-}
 
-.file-meta {
-    color: #666;
-    font-size: 0.9rem;
-    margin-bottom: 15px;
-}
 
 .download-btn {
     display: inline-flex;

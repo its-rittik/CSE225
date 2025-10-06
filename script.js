@@ -19,12 +19,9 @@ const files = [
 ];
 
 function createFileCard(file) {
-    const topicDisplay = file.topic ? file.topic : '';
     return `
-        <div class="file-card" data-week="${file.week}" data-topic="${file.topic ? file.topic.toLowerCase() : ''}">
+        <div class="file-card" data-week="${file.week}">
             <div class="week-badge">Week ${file.week} - Lesson ${file.lesson}</div>
-            ${topicDisplay ? `<div class="file-title">${topicDisplay}</div>` : ''}
-            <div class="file-meta">File: ${file.name}</div>
             <a href="${file.name}" class="download-btn" download>
                 <span>📥</span>
                 Download
@@ -49,11 +46,17 @@ function setupSearch() {
             return;
         }
 
-        const filteredFiles = files.filter(file =>
-            file.name.toLowerCase().includes(searchTerm) ||
-            (file.topic && file.topic.toLowerCase().includes(searchTerm)) ||
-            file.week.toString().includes(searchTerm)
-        );
+        const filteredFiles = files.filter(file => {
+            const searchNum = parseInt(searchTerm);
+
+            // If search term is a number, match exact week or lesson
+            if (!isNaN(searchNum) && searchTerm.trim() === searchNum.toString()) {
+                return file.week === searchNum || file.lesson === searchNum;
+            }
+
+            // Otherwise, search in filename
+            return file.name.toLowerCase().includes(searchTerm);
+        });
 
         renderFiles(filteredFiles);
     });
